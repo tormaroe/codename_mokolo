@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 
 namespace Marosoft.Mokolo.Bot
 {
@@ -28,6 +29,21 @@ namespace Marosoft.Mokolo.Bot
                     throw new ArgumentException(
                         "Missing argument. You have to specify server, nick, and channel.");
             });
+        }
+
+        public string PublicScriptFolder
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["public_scripts"];
+            }
+        }
+        public string PrivateScriptFolder
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["private_scripts"];
+            }
         }
     }
 }

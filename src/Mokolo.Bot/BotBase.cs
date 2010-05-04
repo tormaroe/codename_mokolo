@@ -5,7 +5,7 @@ namespace Marosoft.Mokolo.Bot
 {
     public abstract class BotBase
     {
-        private BotSettings _settings;
+        protected BotSettings _settings;
         private Connection _connection;
         private const bool DIsABLE_CTCP = false;
         private const bool DISABLE_DCC = false;
@@ -67,6 +67,10 @@ namespace Marosoft.Mokolo.Bot
         }
 
         protected abstract void HandlePublicMessage(UserInfo user, string channel, string message);
+        protected void Say(string channel, string response)
+        {
+            _connection.Sender.PublicMessage(channel, response);
+        }
 
     }
 }
