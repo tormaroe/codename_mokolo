@@ -52,6 +52,26 @@ namespace Marosoft.Mokolo.Bot
                 actionToPerform.Invoke();
         }
 
+        protected void when_message_contains_one_of(Boo.Lang.List expected, Action actionToPerform)
+        {
+            foreach (string expression in expected)
+            {
+                if (message.Contains(expression, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    actionToPerform.Invoke();
+                    return;
+                }
+            }
+        }
+
+        protected void reply_with_one_of(Boo.Lang.List replies)
+        {
+            var random = new Random();
+            var indexToUse = random.Next(replies.Count);
+            Console.WriteLine("replies.Count = {0}, using index {1}", replies.Count, indexToUse);
+            reply(replies[indexToUse] as string);
+        }
+
         #endregion
     }
 }
