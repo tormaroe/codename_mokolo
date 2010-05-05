@@ -9,5 +9,19 @@ namespace Marosoft.Mokolo.Bot
             return original.IndexOf(value, comparisionType) >= 0;
         }
 
+        public static bool IsPhoneNumber(this string word)
+        {
+            if (string.IsNullOrEmpty(word))
+                return false;
+
+            if (word.Length < 8 || word.Length > 15)
+                return false;
+
+            foreach (char c in word)
+                if (!Char.IsDigit(c))
+                    return false;
+
+            return true;
+        }
     }
 }

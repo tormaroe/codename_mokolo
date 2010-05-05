@@ -14,7 +14,8 @@ namespace Marosoft.Mokolo.Bot
             pipeline.Insert(1,
                 new ImplicitBaseClassCompilerStep(
                     typeof(ResponseStrategy),
-                    "ExecuteRule"));
+                    "ExecuteRule", 
+                    "System.Net.Mail"));
         }
     }
 }

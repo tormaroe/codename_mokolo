@@ -46,8 +46,11 @@ namespace Marosoft.Mokolo.Bot
             _connection.Listener.OnJoin += (user, channel) =>
             {
                 Console.WriteLine("* {0} joined channel {1}", user.Nick, channel);
-                Console.WriteLine("* Trying to change topic to {0}", _settings.Topic);
-                _connection.Sender.ChangeTopic(channel, _settings.Topic);
+                if (user.Nick.Equals(_settings.Nick))
+                {
+                    Console.WriteLine("* Trying to change topic to {0}", _settings.Topic);
+                    _connection.Sender.ChangeTopic(channel, _settings.Topic);
+                }
             };
 
             _connection.Listener.OnPublic += Listener_OnPublic;

@@ -1,4 +1,5 @@
 using System;
+using System.Net.Mail;
 
 namespace Marosoft.Mokolo.Bot
 {
@@ -101,6 +102,39 @@ namespace Marosoft.Mokolo.Bot
             var indexToUse = random.Next(replies.Count);
             Console.WriteLine("replies.Count = {0}, using index {1}", replies.Count, indexToUse);
             reply(replies[indexToUse] as string);
+        }
+
+        protected void when_message_contains_phone_number(Action actionToPerform)
+        {
+            var words = message.Split();
+            foreach (var word in words)
+            {
+                if (word.IsPhoneNumber())
+                {
+                    actionToPerform();
+                    return;
+                }
+            }
+        }
+
+        protected void send_mail(string to, string subject, string body)
+        {
+            using (var mail = new MailMessage 
+            { 
+                From = new MailAddress("pswinbot@kjempekjekt.com"), 
+                Subject = subject, 
+                Body = body 
+            })
+            {
+                mail.To.Add(to);
+                var smtpServer = new SmtpClient("smtp.gmail.com") 
+                { 
+                    UseDefaultCredentials = false, 
+                    Credentials = new System.Net.NetworkCredential("torbjorn.maro@gmail.com", SmtpSecret.Value), 
+                    EnableSsl = true 
+                };
+                smtpServer.Send(mail);
+            }
         }
 
         #endregion
