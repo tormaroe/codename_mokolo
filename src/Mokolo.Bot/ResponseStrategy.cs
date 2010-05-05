@@ -13,7 +13,26 @@ namespace Marosoft.Mokolo.Bot
         }
 
         public bool CanRespond { get; private set; }
-        public string Response { get; private set; }
+
+        private string _response;
+        public string Response 
+        { 
+            get 
+            {
+                return _response;
+            } 
+            private set 
+            {
+                if (_response == null)
+                {
+                    _response = value;
+                }
+                else
+                {
+                    _response += Environment.NewLine + value;
+                }
+            } 
+        }
         public int Priority { get; private set; }
 
         /// <summary>
@@ -62,6 +81,18 @@ namespace Marosoft.Mokolo.Bot
                     return;
                 }
             }
+        }
+
+        protected void when_message_contains_all_of(Boo.Lang.List expected, Action actionToPerform)
+        {
+            foreach (string expression in expected)
+            {
+                if (!message.Contains(expression, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return;
+                }
+            }
+            actionToPerform.Invoke();
         }
 
         protected void reply_with_one_of(Boo.Lang.List replies)

@@ -1,5 +1,6 @@
 using System;
 using Sharkbite.Irc;
+using System.Threading;
 
 namespace Marosoft.Mokolo.Bot
 {
@@ -81,7 +82,12 @@ namespace Marosoft.Mokolo.Bot
 
         protected void Say(string response)
         {
-            _connection.Sender.PublicMessage(_settings.Channel, response);
+            var messages = response.Split(new string[]{Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
+            Array.ForEach(messages, msg => 
+            {
+                _connection.Sender.PublicMessage(_settings.Channel, msg);
+                Thread.Sleep(500);
+            });
         }
     }
 }
