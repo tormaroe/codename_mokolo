@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using Sharkbite.Irc;
 using Rhino.DSL;
+using System.Linq;
+using Sharkbite.Irc;
+using System.Collections.Generic;
 
 namespace Marosoft.Mokolo.Bot
 {

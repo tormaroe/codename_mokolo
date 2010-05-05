@@ -36,22 +36,27 @@ namespace Marosoft.Mokolo.Bot
 
         private void InitializeEvents()
         {
-            _connection.Listener.OnRegistered += Listener_OnRegistered;
-            
+            _connection.Listener.OnRegistered += () =>
+            {
+                Console.WriteLine("* Registered");
+                Identd.Stop();
+                _connection.Sender.Join(_settings.Channel);
+            };            
+
+            _connection.Listener.OnJoin += (user, channel) =>
+            {
+                Console.WriteLine("* {0} joined channel {1}", user.Nick, channel);
+                Console.WriteLine("* Trying to change topic to {0}", _settings.Topic);
+                _connection.Sender.ChangeTopic(channel, _settings.Topic);
+            };
+
             _connection.Listener.OnPublic += Listener_OnPublic;
             _connection.Listener.OnPrivate += Listener_OnPrivate;
 
-            _connection.Listener.OnJoin += (user, channel) => Console.WriteLine("* {0} joined channel {1}", user.Nick, channel);
             _connection.Listener.OnError += (code, message) => Console.WriteLine("*** An error of type " + code + " due to " + message + " has occurred.");            
             _connection.Listener.OnDisconnected += () => Console.WriteLine("*** Connection to server has been closed"); ;
         }
 
-        void Listener_OnRegistered()
-        {
-            Console.WriteLine("* Registered");
-            Identd.Stop();
-            _connection.Sender.Join(_settings.Channel);
-        }
 
         protected void Listener_OnPrivate(UserInfo user, string message)
         {

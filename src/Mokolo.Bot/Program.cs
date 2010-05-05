@@ -8,7 +8,7 @@ namespace Marosoft.Mokolo.Bot
         {
             try
             {
-                new DslBot(BotSettings.Parse(args)).Connect();
+                new DslBot(new AppConfigBotSettings()).Connect();
             }
             catch (Exception ex)
             {
