@@ -26,5 +26,9 @@ namespace Marosoft.Mokolo.Bot.Spec
         {
             base.when_message_contains_one_of(list, action);
         }
+        public void Call_when_message_contains_all_of(Boo.Lang.List list, Action action)
+        {
+            base.when_message_contains_all_of(list, action);
+        }
     }
 }
