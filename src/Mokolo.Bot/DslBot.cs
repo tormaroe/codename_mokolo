@@ -21,23 +21,41 @@ namespace Marosoft.Mokolo.Bot
 
         protected override void HandlePrivateMessage(UserInfo user, string message)
         {
-
+            // TODO
         }
 
-        protected override void HandlePublicMessage(UserInfo user, string channel, string message)
+        protected override void HandlePublicMessage(UserInfo user, string message)
         {
-            var strategies = _dslFactory.CreateAll<ResponseStrategy>(_settings.PublicScriptFolder);
-            foreach (var strategy in strategies)
+            var strategies = GetStrategiesThatCanRespond(message, user.Nick, _settings.PublicScriptFolder);
+
+            if (strategies.Count > 0)
             {
-                strategy.Initialize(message);
-                strategy.ExecuteRule();
-                if (strategy.WillRespond)
-                {
-                    Console.WriteLine("Found strategy, will respond: {0}", strategy.Response);
-                    Say(channel, strategy.Response);
-                    break;
-                }
+                var selectedStrategy = GetPrioritizedStrategy(strategies);
+                Console.WriteLine("Found strategy, responding: {0}", selectedStrategy.Response);
+                Say(selectedStrategy.Response);
             }
+        }
+
+        private List<ResponseStrategy> GetStrategiesThatCanRespond(string message, string user, string responderFolder)
+        {
+            var availableStrategies = _dslFactory.CreateAll<ResponseStrategy>(responderFolder);
+            var strategiesThatCanRespond = new List<ResponseStrategy>();
+            foreach (var strategy in availableStrategies)
+            {
+                strategy.Initialize(message, user);
+                strategy.ExecuteRule();
+                if (strategy.CanRespond)
+                    strategiesThatCanRespond.Add(strategy);
+            }
+            return strategiesThatCanRespond;
+        }
+
+        private static ResponseStrategy GetPrioritizedStrategy(List<ResponseStrategy> strategies)
+        {
+            Console.WriteLine("{0} valid response strategies found.., sorting and selecting", strategies.Count);
+            strategies.Sort((x, y) => x.Priority.CompareTo(y.Priority));
+            ResponseStrategy selectedStrategy = strategies.First();
+            return selectedStrategy;
         }
     }
 }

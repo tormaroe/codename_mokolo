@@ -7,7 +7,7 @@ namespace Marosoft.Mokolo.Bot
     {
         protected BotSettings _settings;
         private Connection _connection;
-        private const bool DIsABLE_CTCP = false;
+        private const bool DISABLE_CTCP = false;
         private const bool DISABLE_DCC = false;
         
         public BotBase(BotSettings settings)
@@ -19,7 +19,7 @@ namespace Marosoft.Mokolo.Bot
         {
             Identd.Start(_settings.Nick);
             var connectionArgs = new ConnectionArgs(_settings.Nick, _settings.Server);
-            _connection = new Connection(connectionArgs, DIsABLE_CTCP, DISABLE_DCC);
+            _connection = new Connection(connectionArgs, DISABLE_CTCP, DISABLE_DCC);
             InitializeEvents();
             try
             {
@@ -54,23 +54,34 @@ namespace Marosoft.Mokolo.Bot
 
         protected void Listener_OnPrivate(UserInfo user, string message)
         {
-            Console.WriteLine("Private msg from {0} > {1}", user.Nick, message);
-            HandlePrivateMessage(user, message);
+            HandleMessage("Private", HandlePrivateMessage, user, message);
         }
-
-        protected abstract void HandlePrivateMessage(UserInfo user, string message);
 
         private void Listener_OnPublic(UserInfo user, string channel, string message)
         {
-            Console.WriteLine("Public msg from {0} > {1}", user.Nick, message);
-            HandlePublicMessage(user, channel, message);
+            HandleMessage("Public", HandlePublicMessage, user, message);
         }
 
-        protected abstract void HandlePublicMessage(UserInfo user, string channel, string message);
-        protected void Say(string channel, string response)
+        protected abstract void HandlePrivateMessage(UserInfo user, string message);
+        protected abstract void HandlePublicMessage(UserInfo user, string message);
+
+        private void HandleMessage(string messageType, Action<UserInfo, string> handler, UserInfo user, string message)
         {
-            _connection.Sender.PublicMessage(channel, response);
+            Console.WriteLine("{0} msg from {1} > {2}", messageType, user.Nick, message);
+            try
+            {
+                handler.Invoke(user, message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("*** ERROR when handling {0} message:", messageType);
+                Console.WriteLine(ex);
+            }
         }
 
+        protected void Say(string response)
+        {
+            _connection.Sender.PublicMessage(_settings.Channel, response);
+        }
     }
 }
