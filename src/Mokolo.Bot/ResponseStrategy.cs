@@ -46,6 +46,12 @@ namespace Marosoft.Mokolo.Bot
             Priority = value;
         }
 
+        protected void when_message_contains(string expected, Action actionToPerform)
+        {
+            if (message.Contains(expected, StringComparison.InvariantCultureIgnoreCase))
+                actionToPerform.Invoke();
+        }
+
         #endregion
     }
 }

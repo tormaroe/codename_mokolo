@@ -1,1 +1,2 @@
-reply "Have a nice day!" if message.Contains("bye")
+when_message_contains 'bye':
+	reply 'Have a nice day!'

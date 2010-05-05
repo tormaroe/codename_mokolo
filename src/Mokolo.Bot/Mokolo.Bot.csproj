@@ -74,6 +74,7 @@
     <Compile Include="BotSettings.cs" />
     <Compile Include="ResponseStrategyDslEngine.cs" />
     <Compile Include="Specs\Settings_spec.cs" />
+    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
