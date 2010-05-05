@@ -1,6 +1,6 @@
 using System;
-using System.Net.Mail;
 using System.IO;
+using NUnit.Framework;
 
 namespace Marosoft.Mokolo.Bot
 {
