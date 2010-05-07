@@ -1,0 +1,2 @@
+﻿if true:
+	reply "Foobar"

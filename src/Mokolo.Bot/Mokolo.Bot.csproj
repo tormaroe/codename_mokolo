@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfigBotSettings.cs" />
+    <Compile Include="Specs\CompilationTests.cs" />
     <Compile Include="Specs\DSL_API_Context.cs" />
     <Compile Include="Specs\DSL_API_Spec__Reply.cs" />
     <Compile Include="ResponseStrategy.cs" />
@@ -92,6 +93,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Specs\TestDslScripts\When_message_contains_phone_number.boo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Specs\TestDslScripts\When_message_contains_one_of.boo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Specs\TestDslScripts\When_message_contains_all_of.boo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Specs\TestDslScripts\When_message_contains.boo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Specs\TestDslScripts\Reply_with_one_of.boo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Specs\TestDslScripts\Priority.boo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Specs\TestDslScripts\Reply.boo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

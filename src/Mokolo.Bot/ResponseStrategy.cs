@@ -117,6 +117,9 @@ namespace Marosoft.Mokolo.Bot
             }
         }
 
+        /// <remarks>
+        /// Unsupported, does not really belong to the language - made it for a demo
+        /// </remarks>
         protected void send_mail(string to, string subject, string body)
         {
             using (var mail = new MailMessage 
