@@ -30,5 +30,13 @@ namespace Marosoft.Mokolo.Bot.Spec
         {
             base.when_message_contains_all_of(list, action);
         }
+        public void Call_reply_with_one_of(Boo.Lang.List list)
+        {
+            base.reply_with_one_of(list);
+        }
+        public void Call_when_message_contains_phone_number(Action action)
+        {
+            base.when_message_contains_phone_number(action);
+        }
     }
 }

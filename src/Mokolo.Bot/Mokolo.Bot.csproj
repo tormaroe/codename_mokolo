@@ -81,9 +81,11 @@
     <Compile Include="BotSettings.cs" />
     <Compile Include="ResponseStrategyDslEngine.cs" />
     <Compile Include="SmtpSecret.cs" />
+    <Compile Include="Specs\DSL_API_Spec__Reply_with_one_of.cs" />
     <Compile Include="Specs\DSL_API_Spec__When_message_contains.cs" />
     <Compile Include="Specs\DSL_API_Spec__When_message_contains_all_of.cs" />
     <Compile Include="Specs\DSL_API_Spec__When_message_contains_one_of.cs" />
+    <Compile Include="Specs\DSL_API_Spec__When_message_contains_phone_number.cs" />
     <Compile Include="Specs\DSL_API_Spex__Priority.cs" />
     <Compile Include="Specs\StubbedResponseStrategy.cs" />
     <Compile Include="StringExtensions.cs" />
