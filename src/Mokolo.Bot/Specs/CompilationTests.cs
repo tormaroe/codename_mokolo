@@ -46,9 +46,9 @@ namespace Marosoft.Mokolo.Bot.Spec
 
         private void CanCompile(string script)
         {
-            DslFactory dslFactory = new DslFactory();
+            var dslFactory = new DslFactory();
             dslFactory.Register<ResponseStrategy>(new ResponseStrategyDslEngine());
-            ResponseStrategy strategy = dslFactory.Create<ResponseStrategy>(String.Format(@"Specs\TestDslScripts\{0}", script));
+            var strategy = dslFactory.Create<ResponseStrategy>(String.Format(@"Specs\TestDslScripts\{0}", script));
             strategy.ShouldNotBeNull();
         }
     }

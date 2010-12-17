@@ -52,8 +52,7 @@ namespace Marosoft.Mokolo.Bot
         {
             Console.WriteLine("{0} valid response strategies found.., sorting and selecting", strategies.Count);
             strategies.Sort((x, y) => x.Priority.CompareTo(y.Priority));
-            ResponseStrategy selectedStrategy = strategies.First();
-            return selectedStrategy;
+            return strategies.First();
         }
     }
 }
